@@ -1,109 +1,85 @@
-	add   $gp, $zero, $zero
-	addi  $sp, $zero, 10000
-main:
-	addi  $s1, $zero, 0
-	addi  $s2, $zero, 8	     
-	add   $s2, $zero, $v0
-	addi  $a0, $zero, 0         
-	add   $a1, $zero, $s2       
-	add   $a2, $zero, $s1       
-	jal   Queen              
-	add   $s0, $zero, $v0		     
-	add   $a0, $zero, $s0
-	j     Exit
+	# we need 3 arrays: a[0..7], b[-7..7], c[0..14]
+	add	$s0, $zero, $zero
+	addi	$s1, $zero, 100
+	addi	$s2, $zero, 200
+	addi	$sp, $zero, 65536
 
-Queen:
-	addi  $sp, $sp, -32
-	sw    $v0, 28($sp)
-	sw    $ra, 24($sp)       
-	sw    $a0, 20($sp)
-	sw    $a1, 16($sp)
-	sw    $a2, 12($sp)
-	sw    $s5, 8($sp)
-	sw    $s6, 4($sp)
+	add	$s3, $zero, $zero	# cnt = 0
+	addi	$s4, $zero, 8		# n = 0
 
-	addi  $t0, $zero, 1         
-	sw    $t0, 0($sp)		 
-	addi  $t1, $a1, 1        
-	
-	bne   $a0, $a1, Loop	 
-	addi  $a2, $a2, 1        
-	sw    $a2, 12($sp)        
-	j     Exit1
-	
-Loop:
-	slt   $t2, $t0, $t1      
-	beq   $t2, $zero,  Exit1    
-	lw    $a0, 20($sp)		 
-        add $t0, $t0, $t0
-        add $t5, $t0, $t0
-	sub   $s6, $gp, $s5 
-	sw    $t0, 0($s6)	     
-	
-	jal   Valid		         
-	beq   $v1, $zero, FLAG	     
-	addi  $a0, $a0, 1 	     
-	jal   Queen
-	add   $a2, $zero, $v0  	     
-	sw    $a2, 12($sp)
-	
-FLAG:
-	lw    $t0, 0($sp)		 
-	addi  $t0, $t0, 1	     
-	sw    $t0, 0($sp)		 
-	j     Loop
+	add	$a0, $zero, $zero
+	jal	DFS
+	jal	END
 
-Exit1:
-	lw    $ra, 24($sp)	     
-	lw	  $a2, 12($sp)
-	add   $v0, $zero, $a2  	     
-	lw    $s5, 8($sp)
-	lw    $s6, 4($sp)
-	lw    $t0, 0($sp)		 
-	addi  $sp, $sp, 32	     
-				             
-	jr    $ra                
-Valid: 
-	addi  $sp, $sp, -12
-        sw    $s5, 8($sp)
-	sw    $s6, 4($sp)
-	sw    $s7, 0($sp)
-   
-	addi  $t3, $zero,  0        
-	
-Lp:
-	slt   $t5, $t3, $a0	     
-	beq   $t5, $zero,  Exit2    
-	
-        add $t3, $t3, $t3
-        add $t5, $t3, $t3
-	sub   $s6, $gp, $s5
-	lw    $t4, 0($s6)	     
-	
-	beq   $t4, $t0, Exit3	 
-	sub   $t6, $t4, $t0	     
-	sub   $t7, $a0, $t3	     
-	sub   $s7, $t3, $a0	     
-	beq   $t6, $t7, Exit3	 
-	beq   $t6, $s7, Exit3	 
-	addi  $t3, $t3, 1	     
-	j	  Lp			     
+DFS:			# dfs(int dep):
+	addi	$sp, $sp, -40
+	sw	$ra, 0($sp)
+	sw	$s5, -4($sp)
+	sw	$t0, -8($sp)
+	sw	$t1, -12($sp)
+	sw	$t2, -16($sp)
+	sw	$t3, -20($sp)
+	sw	$t4, -24($sp)
+	sw	$t5, -28($sp)
+	sw	$t6, -32($sp)
+	sw	$t7, -36($sp)
 
-Exit2:
-	lw    $s5, 8($sp)
-	lw    $s6, 4($sp)
-	lw    $s7, 0($sp)
-	addi  $sp, $sp, 12
-	addi  $v1, $zero, 1         
-	jr    $ra
-	     
-Exit3:
-	lw    $s5, 8($sp)
-	lw    $s6, 4($sp)
-	lw    $s7, 0($sp)
-	addi  $sp, $sp, 12
-	addi  $v1, $zero, 0         
-	jr    $ra
-Exit:
-	nop
+	bne	$a0, $s4, L0		# if (dep == n) {
+	add	$s3, $s3, 1		#	cnt++;
+	j	L2			#	return;
+					# }
+L0:	add	$s5, $zero, $zero	# i = 0
+L1:	slt	$t0, $s5, $s4		# while (i < n) {
+	beq	$t0, $zero, L3
+
+	sll	$t1, $s5, 2		#	t1 = &a[i];
+	add	$t1, $t1, $s1
+	sub	$t2, $a0, $s5		#	t2 = &b[dep-i];
+	sll	$t2, $t2, 2
+	add	$t2, $t2, $s2
+	add	$t3, $a0, $s5		#	t3 = &c[dep+i];
+	add	$t3, $t3, $s3
+	sll	$t3, $t3, 2
+	
+	lw	$t4, 0($t1)		#	t4 = !(*t1);
+	nor	$t4, $t4, $t4
+	lw	$t5, 0($t2)		#	t5 = !(*t2);
+	nor	$t5, $t5, $t5
+	lw	$t6, 0($t3)		#	t6 = !(*t3);
+	nor	$t6, $t6, $t6		#	if (t4 && t5 && t6) {
+	and	$t7, $t4, $t5
+	and	$t7, $t7, $t6
+	beq	$t7, $zero, L2
+	addi	$t0, $zero, 1
+	sw	$t0, 0($t1)		#		*t1 = 1;
+	sw	$t0, 0($t2)		#		*t2 = 1;
+	sw	$t0, 0($t3)		#		*t3 = 1;
+	
+	addi	$a0, $a0, 1		#		dfs(dep + 1);
+	jal	DFS
+	addi	$a0, $a0, -1
+
+	sw	$zero, 0($t1)		#		*t1 = 0;
+	sw	$zero, 0($t2)		#		*t2 = 0;
+	sw	$zero, 0($t3)		#		*t3 = 0;
+					#	}
+
+L2:	addi	$s5, $s5, 1
+	j	L1			# }
+
+L3:	lw	$at, 0($sp)		# return
+	lw	$ra, 0($sp)
+	lw	$s5, 4($sp)
+	lw	$t0, 8($sp)
+	lw	$t1, 12($sp)
+	lw	$t2, 16($sp)
+	lw	$t3, 20($sp)
+	lw	$t4, 24($sp)
+	lw	$t5, 28($sp)
+	lw	$t6, 32($sp)
+	lw	$t7, 36($sp)
+	addi	$sp, $sp, 40
+	jr	$at
+	
+END:	nop
 
