@@ -437,7 +437,7 @@ static void exec_ins() {
 			cpu.pc_rb = NULL;
 			break;
 		case OP_JR:
-			cpu.pc_mem = ins_buf + cpu.reg_value[rs] - 1;
+			cpu.pc_mem = ins_buf + cpu.reg_value[rs];
 			cpu.pc_rb = NULL;
 			break;
 		case OP_LW:

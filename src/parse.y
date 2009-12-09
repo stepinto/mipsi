@@ -86,8 +86,8 @@ inst_body
 			YYERROR;
 		}
 		curr->type = R_TYPE;
-		curr->op = $1;
-		curr->un.r.rs = OP_JR;
+		curr->op = OP_JR;
+		curr->un.r.rs = $2;
 	}
 	| OPCODE ID {
 		if ($1 != OP_JAL && $1 != OP_J) {

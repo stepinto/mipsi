@@ -2,10 +2,10 @@
 	add	$s0, $zero, $zero
 	addi	$s1, $zero, 100
 	addi	$s2, $zero, 200
-	addi	$sp, $zero, 65536
+	addi	$sp, $zero, 60000
 
 	add	$s3, $zero, $zero	# cnt = 0
-	addi	$s4, $zero, 8		# n = 0
+	addi	$s4, $zero, 4		# n = 0
 
 	add	$a0, $zero, $zero
 	jal	DFS
@@ -24,9 +24,10 @@ DFS:			# dfs(int dep):
 	sw	$t6, -32($sp)
 	sw	$t7, -36($sp)
 
+#	add	$t0, $a0, $zero
 	bne	$a0, $s4, L0		# if (dep == n) {
-	add	$s3, $s3, 1		#	cnt++;
-	j	L2			#	return;
+	addi	$s3, $s3, 1		#	cnt++;
+	j	L3			#	return;
 					# }
 L0:	add	$s5, $zero, $zero	# i = 0
 L1:	slt	$t0, $s5, $s4		# while (i < n) {
@@ -67,19 +68,18 @@ L1:	slt	$t0, $s5, $s4		# while (i < n) {
 L2:	addi	$s5, $s5, 1
 	j	L1			# }
 
-L3:	lw	$at, 0($sp)		# return
-	lw	$ra, 0($sp)
-	lw	$s5, 4($sp)
-	lw	$t0, 8($sp)
-	lw	$t1, 12($sp)
-	lw	$t2, 16($sp)
-	lw	$t3, 20($sp)
-	lw	$t4, 24($sp)
-	lw	$t5, 28($sp)
-	lw	$t6, 32($sp)
-	lw	$t7, 36($sp)
+L3:	lw	$ra, 0($sp)		# return
+	lw	$s5, -4($sp)
+	lw	$t0, -8($sp)
+	lw	$t1, -12($sp)
+	lw	$t2, -16($sp)
+	lw	$t3, -20($sp)
+	lw	$t4, -24($sp)
+	lw	$t5, -28($sp)
+	lw	$t6, -32($sp)
+	lw	$t7, -36($sp)
 	addi	$sp, $sp, 40
-	jr	$at
+	jr	$ra
 	
 END:	nop
 

@@ -1421,8 +1421,8 @@ yyreduce:
 			YYERROR;
 		}
 		curr->type = R_TYPE;
-		curr->op = (yyvsp[(1) - (2)]._opcode);
-		curr->un.r.rs = OP_JR;
+		curr->op = OP_JR;
+		curr->un.r.rs = (yyvsp[(2) - (2)]._reg);
 	}
     break;
 
