@@ -375,6 +375,7 @@ enum opcode make_opcode(const char *s) {
 
 static void exec_ins() {
 	int rs, rt, rd, imm;
+	int addr;
 
 	assert(cpu.pc_rb->type == get_ins_type(cpu.pc_rb->op));
 	switch (cpu.pc_rb->type) {
@@ -432,7 +433,7 @@ static void exec_ins() {
 			break;
 		case OP_JAL:
 			cpu.reg_value[REG_RA] = cpu.pc_mem - ins_buf;
-			cpu.pc_mem = find_ins(cpu.pc_rb->un.i.imm) - 1;
+			cpu.pc_mem = find_ins(imm) - 1;
 			cpu.pc_rb = NULL;
 			break;
 		case OP_JR:
@@ -440,7 +441,9 @@ static void exec_ins() {
 			cpu.pc_rb = NULL;
 			break;
 		case OP_LW:
-			cpu.reg_value[rt] = *(int*)&mem[cpu.reg_value[rs] + imm];
+			addr = cpu.reg_value[rs] + imm;
+			assert(0 <= addr && addr < MEM_SIZE);
+			cpu.reg_value[rt] = *(int*)&mem[addr];
 			break;
 		case OP_NOP:
 			break;
@@ -466,7 +469,9 @@ static void exec_ins() {
 			cpu.reg_value[rd] = cpu.reg_value[rs] - cpu.reg_value[rt];
 			break;
 		case OP_SW:
-			*(int*)&mem[cpu.reg_value[rs] + imm] = cpu.reg_value[rt];
+			addr = cpu.reg_value[rs] + imm;
+			assert(0 <= addr && addr < MEM_SIZE);
+			*(int*)&mem[addr] = cpu.reg_value[rt];
 			break;
 		default:
 			assert(0);

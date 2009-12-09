@@ -1,6 +1,5 @@
 	add	$s1, $zero, $zero	# cnt = 0;
 	addi	$s0, $zero, 100		# n = 100;
-	add	$s0, $s0, $s0
 
 	addi	$s2, $zero, 2		# i = 2;
 L0:	slt	$t0, $s2, $s0		# while (i < n) {
