@@ -1,0 +1,132 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.7	//
+INS_BUF_LEN	mipsi.h	5;"	d
+I_TYPE	mipsi.h	/^enum ins_type { R_TYPE, I_TYPE, J_TYPE };$/;"	e	enum:ins_type
+J_TYPE	mipsi.h	/^enum ins_type { R_TYPE, I_TYPE, J_TYPE };$/;"	e	enum:ins_type
+MEM_SIZE	mipsi.h	6;"	d
+OP_ADD	mipsi.h	/^	OP_ADD, OP_ADDI, OP_AND, OP_ANDI, OP_BEQ, OP_BNE, OP_J, OP_JAL, OP_JR,$/;"	e	enum:opcode
+OP_ADDI	mipsi.h	/^	OP_ADD, OP_ADDI, OP_AND, OP_ANDI, OP_BEQ, OP_BNE, OP_J, OP_JAL, OP_JR,$/;"	e	enum:opcode
+OP_AND	mipsi.h	/^	OP_ADD, OP_ADDI, OP_AND, OP_ANDI, OP_BEQ, OP_BNE, OP_J, OP_JAL, OP_JR,$/;"	e	enum:opcode
+OP_ANDI	mipsi.h	/^	OP_ADD, OP_ADDI, OP_AND, OP_ANDI, OP_BEQ, OP_BNE, OP_J, OP_JAL, OP_JR,$/;"	e	enum:opcode
+OP_BEQ	mipsi.h	/^	OP_ADD, OP_ADDI, OP_AND, OP_ANDI, OP_BEQ, OP_BNE, OP_J, OP_JAL, OP_JR,$/;"	e	enum:opcode
+OP_BNE	mipsi.h	/^	OP_ADD, OP_ADDI, OP_AND, OP_ANDI, OP_BEQ, OP_BNE, OP_J, OP_JAL, OP_JR,$/;"	e	enum:opcode
+OP_J	mipsi.h	/^	OP_ADD, OP_ADDI, OP_AND, OP_ANDI, OP_BEQ, OP_BNE, OP_J, OP_JAL, OP_JR,$/;"	e	enum:opcode
+OP_JAL	mipsi.h	/^	OP_ADD, OP_ADDI, OP_AND, OP_ANDI, OP_BEQ, OP_BNE, OP_J, OP_JAL, OP_JR,$/;"	e	enum:opcode
+OP_JR	mipsi.h	/^	OP_ADD, OP_ADDI, OP_AND, OP_ANDI, OP_BEQ, OP_BNE, OP_J, OP_JAL, OP_JR,$/;"	e	enum:opcode
+OP_LAST	mipsi.h	/^	OP_SW, OP_LAST$/;"	e	enum:opcode
+OP_LW	mipsi.h	/^	OP_LW, OP_NOP, OP_NOR, OP_ORI, OP_SLT, OP_SLTI, OP_SLL, OP_SLR, OP_SUB,$/;"	e	enum:opcode
+OP_NOP	mipsi.h	/^	OP_LW, OP_NOP, OP_NOR, OP_ORI, OP_SLT, OP_SLTI, OP_SLL, OP_SLR, OP_SUB,$/;"	e	enum:opcode
+OP_NOR	mipsi.h	/^	OP_LW, OP_NOP, OP_NOR, OP_ORI, OP_SLT, OP_SLTI, OP_SLL, OP_SLR, OP_SUB,$/;"	e	enum:opcode
+OP_ORI	mipsi.h	/^	OP_LW, OP_NOP, OP_NOR, OP_ORI, OP_SLT, OP_SLTI, OP_SLL, OP_SLR, OP_SUB,$/;"	e	enum:opcode
+OP_SLL	mipsi.h	/^	OP_LW, OP_NOP, OP_NOR, OP_ORI, OP_SLT, OP_SLTI, OP_SLL, OP_SLR, OP_SUB,$/;"	e	enum:opcode
+OP_SLR	mipsi.h	/^	OP_LW, OP_NOP, OP_NOR, OP_ORI, OP_SLT, OP_SLTI, OP_SLL, OP_SLR, OP_SUB,$/;"	e	enum:opcode
+OP_SLT	mipsi.h	/^	OP_LW, OP_NOP, OP_NOR, OP_ORI, OP_SLT, OP_SLTI, OP_SLL, OP_SLR, OP_SUB,$/;"	e	enum:opcode
+OP_SLTI	mipsi.h	/^	OP_LW, OP_NOP, OP_NOR, OP_ORI, OP_SLT, OP_SLTI, OP_SLL, OP_SLR, OP_SUB,$/;"	e	enum:opcode
+OP_SUB	mipsi.h	/^	OP_LW, OP_NOP, OP_NOR, OP_ORI, OP_SLT, OP_SLTI, OP_SLL, OP_SLR, OP_SUB,$/;"	e	enum:opcode
+OP_SW	mipsi.h	/^	OP_SW, OP_LAST$/;"	e	enum:opcode
+REGS	mipsi.h	7;"	d
+REG_A0	mipsi.h	/^	REG_ZERO, REG_AT, REG_V0, REG_V1, REG_A0, REG_A1, REG_A2, REG_A3, REG_T0,$/;"	e	enum:reg
+REG_A1	mipsi.h	/^	REG_ZERO, REG_AT, REG_V0, REG_V1, REG_A0, REG_A1, REG_A2, REG_A3, REG_T0,$/;"	e	enum:reg
+REG_A2	mipsi.h	/^	REG_ZERO, REG_AT, REG_V0, REG_V1, REG_A0, REG_A1, REG_A2, REG_A3, REG_T0,$/;"	e	enum:reg
+REG_A3	mipsi.h	/^	REG_ZERO, REG_AT, REG_V0, REG_V1, REG_A0, REG_A1, REG_A2, REG_A3, REG_T0,$/;"	e	enum:reg
+REG_AT	mipsi.h	/^	REG_ZERO, REG_AT, REG_V0, REG_V1, REG_A0, REG_A1, REG_A2, REG_A3, REG_T0,$/;"	e	enum:reg
+REG_GP	mipsi.h	/^	REG_GP, REG_SP, REG_RA, REG_LAST$/;"	e	enum:reg
+REG_LAST	mipsi.h	/^	REG_GP, REG_SP, REG_RA, REG_LAST$/;"	e	enum:reg
+REG_RA	mipsi.h	/^	REG_GP, REG_SP, REG_RA, REG_LAST$/;"	e	enum:reg
+REG_S0	mipsi.h	/^	REG_S0, REG_S1, REG_S2, REG_S3, REG_S4, REG_S5, REG_S6, REG_S7, REG_S8,$/;"	e	enum:reg
+REG_S1	mipsi.h	/^	REG_S0, REG_S1, REG_S2, REG_S3, REG_S4, REG_S5, REG_S6, REG_S7, REG_S8,$/;"	e	enum:reg
+REG_S2	mipsi.h	/^	REG_S0, REG_S1, REG_S2, REG_S3, REG_S4, REG_S5, REG_S6, REG_S7, REG_S8,$/;"	e	enum:reg
+REG_S3	mipsi.h	/^	REG_S0, REG_S1, REG_S2, REG_S3, REG_S4, REG_S5, REG_S6, REG_S7, REG_S8,$/;"	e	enum:reg
+REG_S4	mipsi.h	/^	REG_S0, REG_S1, REG_S2, REG_S3, REG_S4, REG_S5, REG_S6, REG_S7, REG_S8,$/;"	e	enum:reg
+REG_S5	mipsi.h	/^	REG_S0, REG_S1, REG_S2, REG_S3, REG_S4, REG_S5, REG_S6, REG_S7, REG_S8,$/;"	e	enum:reg
+REG_S6	mipsi.h	/^	REG_S0, REG_S1, REG_S2, REG_S3, REG_S4, REG_S5, REG_S6, REG_S7, REG_S8,$/;"	e	enum:reg
+REG_S7	mipsi.h	/^	REG_S0, REG_S1, REG_S2, REG_S3, REG_S4, REG_S5, REG_S6, REG_S7, REG_S8,$/;"	e	enum:reg
+REG_S8	mipsi.h	/^	REG_S0, REG_S1, REG_S2, REG_S3, REG_S4, REG_S5, REG_S6, REG_S7, REG_S8,$/;"	e	enum:reg
+REG_SP	mipsi.h	/^	REG_GP, REG_SP, REG_RA, REG_LAST$/;"	e	enum:reg
+REG_T0	mipsi.h	/^	REG_ZERO, REG_AT, REG_V0, REG_V1, REG_A0, REG_A1, REG_A2, REG_A3, REG_T0,$/;"	e	enum:reg
+REG_T1	mipsi.h	/^	REG_T1, REG_T2, REG_T3, REG_T4, REG_T5, REG_T6, REG_T7, REG_T8, REG_T9,$/;"	e	enum:reg
+REG_T2	mipsi.h	/^	REG_T1, REG_T2, REG_T3, REG_T4, REG_T5, REG_T6, REG_T7, REG_T8, REG_T9,$/;"	e	enum:reg
+REG_T3	mipsi.h	/^	REG_T1, REG_T2, REG_T3, REG_T4, REG_T5, REG_T6, REG_T7, REG_T8, REG_T9,$/;"	e	enum:reg
+REG_T4	mipsi.h	/^	REG_T1, REG_T2, REG_T3, REG_T4, REG_T5, REG_T6, REG_T7, REG_T8, REG_T9,$/;"	e	enum:reg
+REG_T5	mipsi.h	/^	REG_T1, REG_T2, REG_T3, REG_T4, REG_T5, REG_T6, REG_T7, REG_T8, REG_T9,$/;"	e	enum:reg
+REG_T6	mipsi.h	/^	REG_T1, REG_T2, REG_T3, REG_T4, REG_T5, REG_T6, REG_T7, REG_T8, REG_T9,$/;"	e	enum:reg
+REG_T7	mipsi.h	/^	REG_T1, REG_T2, REG_T3, REG_T4, REG_T5, REG_T6, REG_T7, REG_T8, REG_T9,$/;"	e	enum:reg
+REG_T8	mipsi.h	/^	REG_T1, REG_T2, REG_T3, REG_T4, REG_T5, REG_T6, REG_T7, REG_T8, REG_T9,$/;"	e	enum:reg
+REG_T9	mipsi.h	/^	REG_T1, REG_T2, REG_T3, REG_T4, REG_T5, REG_T6, REG_T7, REG_T8, REG_T9,$/;"	e	enum:reg
+REG_V0	mipsi.h	/^	REG_ZERO, REG_AT, REG_V0, REG_V1, REG_A0, REG_A1, REG_A2, REG_A3, REG_T0,$/;"	e	enum:reg
+REG_V1	mipsi.h	/^	REG_ZERO, REG_AT, REG_V0, REG_V1, REG_A0, REG_A1, REG_A2, REG_A3, REG_T0,$/;"	e	enum:reg
+REG_ZERO	mipsi.h	/^	REG_ZERO, REG_AT, REG_V0, REG_V1, REG_A0, REG_A1, REG_A2, REG_A3, REG_T0,$/;"	e	enum:reg
+RESCHED_BUF_LEN	mipsi.c	12;"	d	file:
+R_TYPE	mipsi.h	/^enum ins_type { R_TYPE, I_TYPE, J_TYPE };$/;"	e	enum:ins_type
+SYMBOLS	mipsi.h	3;"	d
+SYMBOL_LEN	mipsi.h	4;"	d
+_reg	mipsi.c	/^	enum reg _reg;$/;"	m	struct:reg_info	typeref:enum:reg_info::reg	file:
+best_hazards	mipsi.c	/^static int best_hazards;$/;"	v	file:
+cpu	mipsi.c	/^} cpu;$/;"	v	typeref:struct:__anon2	file:
+debug	mipsi.c	/^static int debug;$/;"	v	file:
+debug_msg	mipsi.c	/^static void debug_msg(const char *fmt, ...) {$/;"	f	file:
+dfs_permu	mipsi.c	/^static void dfs_permu(int dep, int n, int n_hazards) {$/;"	f	file:
+die	mipsi.c	/^static void die() {$/;"	f	file:
+eval_resched_buf	mipsi.c	/^static int eval_resched_buf() {$/;"	f	file:
+exec_ins	mipsi.c	/^static void exec_ins() {$/;"	f	file:
+find_ins	mipsi.c	/^static struct ins *find_ins(int label) {$/;"	f	file:
+get_ins_type	mipsi.c	/^enum ins_type get_ins_type(enum opcode op) {$/;"	f
+get_opcode_name	mipsi.c	/^char *get_opcode_name(enum opcode op) {$/;"	f
+get_reg_name	mipsi.c	/^char *get_reg_name(enum reg r) {$/;"	f
+help	mipsi.c	/^static void help() {$/;"	f	file:
+i	mipsi.h	/^		struct { enum reg rs, rt; int imm; } i;$/;"	m	union:ins::__anon3	typeref:struct:ins::__anon3::__anon5
+imm	mipsi.h	/^		struct { enum reg rs, rt; int imm; } i;$/;"	m	struct:ins::__anon3::__anon5
+imm	mipsi.h	/^		struct { int imm; } j;$/;"	m	struct:ins::__anon3::__anon6
+init_cpu	mipsi.c	/^static void init_cpu() {$/;"	f	file:
+init_mem	mipsi.c	/^static void init_mem() {$/;"	f	file:
+ins	mipsi.h	/^struct ins {$/;"	s
+ins_buf	mipsi.c	/^struct ins ins_buf[INS_BUF_LEN];$/;"	v	typeref:struct:ins
+ins_type	mipsi.h	/^enum ins_type { R_TYPE, I_TYPE, J_TYPE };$/;"	g
+j	mipsi.h	/^		struct { int imm; } j;$/;"	m	union:ins::__anon3	typeref:struct:ins::__anon3::__anon6
+label	mipsi.h	/^	int label;$/;"	m	struct:ins
+lookup_symbol	mipsi.c	/^int lookup_symbol(const char *s) {$/;"	f
+main	mipsi.c	/^int main(int argc, char **argv) {$/;"	f
+make_opcode	mipsi.c	/^enum opcode make_opcode(const char *s) {$/;"	f
+make_reg	mipsi.c	/^enum reg make_reg(const char *s) {$/;"	f
+mem	mipsi.c	/^static char mem[MEM_SIZE];$/;"	v	file:
+n_ins	mipsi.c	/^int n_ins;$/;"	v
+n_symbols	mipsi.c	/^int n_symbols;$/;"	v
+name	mipsi.c	/^	char *name;$/;"	m	struct:__anon1	file:
+name	mipsi.c	/^	char *name;$/;"	m	struct:reg_info	file:
+need_resched	mipsi.c	/^static int need_resched() {$/;"	f	file:
+op	mipsi.c	/^	enum opcode op;$/;"	m	struct:__anon1	typeref:enum:__anon1::opcode	file:
+op	mipsi.h	/^	enum opcode op;$/;"	m	struct:ins	typeref:enum:ins::opcode
+opcode	mipsi.h	/^enum opcode {$/;"	g
+opcode_info	mipsi.c	/^} opcode_info[] = {$/;"	v	typeref:struct:__anon1
+optimized	mipsi.c	/^static int optimized;$/;"	v	file:
+pc_ins	mipsi.c	/^	int pc_mem, pc_ins;$/;"	m	struct:__anon2	file:
+pc_mem	mipsi.c	/^	int pc_mem, pc_ins;$/;"	m	struct:__anon2	file:
+permu	mipsi.c	/^static int permu[RESCHED_BUF_LEN];$/;"	v	file:
+print_ins	mipsi.c	/^static void print_ins(struct ins *i) {$/;"	f	file:
+profile	mipsi.c	/^static int profile;$/;"	v	file:
+r	mipsi.h	/^		struct { enum reg rs, rt, rd; } r;$/;"	m	union:ins::__anon3	typeref:struct:ins::__anon3::__anon4
+rd	mipsi.h	/^		struct { enum reg rs, rt, rd; } r;$/;"	m	struct:ins::__anon3::__anon4	typeref:enum:ins::__anon3::__anon4::
+reg	mipsi.h	/^enum reg {$/;"	g
+reg_info	mipsi.c	/^struct reg_info {$/;"	s	file:
+reg_info	mipsi.c	/^} reg_info[] = {$/;"	v	typeref:struct:reg_info
+reg_value	mipsi.c	/^	int reg_value[REG_LAST];$/;"	m	struct:__anon2	file:
+resched	mipsi.c	/^static void resched() {$/;"	f	file:
+resched_buf	mipsi.c	/^	struct ins resched_buf[RESCHED_BUF_LEN];$/;"	m	struct:__anon2	typeref:struct:__anon2::ins	file:
+resched_buf_best	mipsi.c	/^static struct ins resched_buf_best[RESCHED_BUF_LEN];$/;"	v	typeref:struct:ins	file:
+resched_buf_len	mipsi.c	/^	int resched_buf_len;$/;"	m	struct:__anon2	file:
+resched_buf_len	mipsi.c	/^static int resched_buf_len = 1;$/;"	v	file:
+rs	mipsi.h	/^		struct { enum reg rs, rt, rd; } r;$/;"	m	struct:ins::__anon3::__anon4	typeref:enum:ins::__anon3::__anon4::reg
+rs	mipsi.h	/^		struct { enum reg rs, rt; int imm; } i;$/;"	m	struct:ins::__anon3::__anon5	typeref:enum:ins::__anon3::__anon5::reg
+rt	mipsi.h	/^		struct { enum reg rs, rt, rd; } r;$/;"	m	struct:ins::__anon3::__anon4	typeref:enum:ins::__anon3::__anon4::
+rt	mipsi.h	/^		struct { enum reg rs, rt; int imm; } i;$/;"	m	struct:ins::__anon3::__anon5	typeref:enum:ins::__anon3::__anon5::
+run	mipsi.c	/^static void run() {$/;"	f	file:
+stall_range	mipsi.c	/^int stall_range = 2;$/;"	v
+symbol	mipsi.c	/^char symbol[SYMBOLS][SYMBOL_LEN];$/;"	v
+type	mipsi.c	/^	enum ins_type type;$/;"	m	struct:__anon1	typeref:enum:__anon1::ins_type	file:
+type	mipsi.h	/^	enum ins_type type;$/;"	m	struct:ins	typeref:enum:ins::ins_type
+un	mipsi.h	/^	} un;$/;"	m	struct:ins	typeref:union:ins::__anon3
+used	mipsi.c	/^static int used[RESCHED_BUF_LEN];$/;"	v	file:

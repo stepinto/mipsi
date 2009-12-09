@@ -19,9 +19,11 @@ enum reg {
 	REG_GP, REG_SP, REG_RA, REG_LAST
 };
 
+enum ins_type { R_TYPE, I_TYPE, J_TYPE };
+
 struct ins {
 	int label;
-	enum { R_TYPE, I_TYPE, J_TYPE } type;
+	enum ins_type type;
 	enum opcode op;
 
 	union {
@@ -33,10 +35,11 @@ struct ins {
 
 extern int n_ins;
 extern struct ins ins_buf[INS_BUF_LEN];
-extern int n_symbols;
-extern char symbol[SYMBOLS][SYMBOL_LEN];
-extern int lookup(const char *s);
-extern char *reg_name(enum reg r);
-extern char *opcode_name(enum opcode op);
+
+extern int lookup_symbol(const char *s);
+extern char *get_reg_name(enum reg r);
+extern char *get_opcode_name(enum opcode op);
+extern enum ins_type get_ins_type(enum opcode op);
 extern enum reg make_reg(const char *s);
 extern enum opcode make_opcode(const char *s);
+

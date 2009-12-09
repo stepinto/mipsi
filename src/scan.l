@@ -45,7 +45,7 @@ L			[a-zA-Z_]
 "\$zero"		{ save_reg(); return REG; }
 "\$at"			{ save_reg(); return REG; }
 
-\$v[01]		{ save_reg(); return REG; }
+\$v[01]			{ save_reg(); return REG; }
 \$a[0-3]		{ save_reg(); return REG; }
 \$t[0-9]		{ save_reg(); return REG; }
 \$s[0-8]		{ save_reg(); return REG; }
@@ -55,7 +55,7 @@ L			[a-zA-Z_]
 
 {L}({L}|{D})*		{ save_id(); return ID; }
 {D}+			{ save_imm(); return IMM; }
-\-{D}+		{ save_imm(); return IMM; }
+\-{D}+			{ save_imm(); return IMM; }
 
 [ \t\v\n\f]		{}
 %%
@@ -63,7 +63,7 @@ L			[a-zA-Z_]
 int yywrap() { return 1; }
 int yyerror(const char *s) { printf("%d: %s\n", yylineno, s); return 0; }
 
-static void save_id() { yylval.id = lookup(yytext); }
+static void save_id() { yylval.id = lookup_symbol(yytext); }
 
 static void save_imm() { yylval.imm = atoi(yytext); }
 
