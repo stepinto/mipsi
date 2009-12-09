@@ -82,6 +82,7 @@ extern int yydebug;
 
 int main(int argc, char **argv) {
 	int opt;
+	int i;
 
 	// yydebug = 1;
 
@@ -103,9 +104,15 @@ int main(int argc, char **argv) {
 	else
 		yyin = stdin;
 
-	debug_msg("Parsing assembly code.\n");
+	debug_msg("Parse assembly code.\n");
 	if (yyparse() > 0) { printf("Syntax error\n"); exit(1); }
 	debug_msg("%d instruction(s) has been loaded.\n", n_ins);
+	if (debug) {
+		for (i = 0; i < n_ins; i++) {
+			print_ins(&ins_buf[i]);
+			printf("\n");
+		}
+	}
 
 	debug_msg("Start exectuion. Reschedule-buffer: %d.\n", resched_buf_len);
 	run();
@@ -134,12 +141,15 @@ static void run() {
 	while (cpu.pc_mem < ins_buf + n_ins) {
 		if (need_resched())
 			resched();
-		
-		exec_ins();
-
+	
 		if (debug) {
 			printf("%d: ", cpu.pc_mem - ins_buf);
 			print_ins(cpu.pc_rb);
+		}
+
+		exec_ins();
+
+		if (debug) {
 			for (i = 0; i < 4; i++)
 				printf("%ss%d=%d", i==0?"\t# ":", ", i, cpu.reg_value[REG_S0 + i]);
 			for (i = 0; i < 2; i++)
@@ -163,7 +173,7 @@ static void resched() {
 	int i, n;
 
 	n = 0;
-	while (n < resched_buf_len && is_branch_op(cpu.pc_mem[n].op))
+	while (n < resched_buf_len && !is_branch_op(cpu.pc_mem[n].op))
 		n++;
 	memcpy(cpu.resched_buf, cpu.pc_mem, n * sizeof(struct ins));
 	cpu.resched_buf_len = n;
@@ -171,7 +181,12 @@ static void resched() {
 	best_hazards = 0x7fffffff;  // infinity
 	dfs_permu(0, n);
 
-	memcpy(cpu.resched_buf, resched_buf_best, RESCHED_BUF_LEN * sizeof(struct ins));
+	memcpy(cpu.resched_buf, resched_buf_best, n * sizeof(struct ins));
+	if (n < resched_buf_len) {
+		assert(is_branch_op(cpu.pc_mem[n].op));
+		cpu.resched_buf[n] = cpu.pc_mem[n];
+		n++;
+	}
 	cpu.pc_rb = cpu.resched_buf;
 }
 
@@ -256,8 +271,12 @@ static void print_ins(struct ins *i) {
 					get_reg_name(i->un.r.rt));
 			break;
 		case I_TYPE:
-			printf("%s, %s, %d", get_reg_name(i->un.i.rt),
-					get_reg_name(i->un.i.rs), i->un.i.imm);
+			if (i->op == OP_LW || i->op == OP_SW)
+				printf("%s, %d (%s)", get_reg_name(i->un.i.rt),
+						i->un.i.imm, get_reg_name(i->un.i.rs));
+			else
+				printf("%s, %s, %d", get_reg_name(i->un.i.rt),
+						get_reg_name(i->un.i.rs), i->un.i.imm);
 			break;
 		case J_TYPE:
 			printf("%d", i->un.j.imm);
@@ -430,7 +449,7 @@ static void exec_ins() {
 static void init_cpu() {
 	bzero(&cpu, sizeof(cpu));
 	cpu.pc_mem = ins_buf;
-	cpu.pc_rb = cpu.resched_buf + resched_buf_len;
+	cpu.pc_rb = NULL;
 }
 
 static void init_mem() {

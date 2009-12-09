@@ -69,7 +69,7 @@ AUTOMAKE = ${SHELL} /tmp/mipsi/missing --run automake-1.10
 AWK = gawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
-CFLAGS = -g -O2
+CFLAGS = -g
 CPPFLAGS = 
 CYGPATH_W = echo
 DEFS = -DPACKAGE_NAME=\"mipsi\" -DPACKAGE_TARNAME=\"mipsi\" -DPACKAGE_VERSION=\"0.1\" -DPACKAGE_STRING=\"mipsi\ 0.1\" -DPACKAGE_BUGREPORT=\"charlescpp@gmail.com\" -DPACKAGE=\"mipsi\" -DVERSION=\"0.1\" -DYYTEXT_POINTER=1
