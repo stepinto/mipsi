@@ -10,6 +10,7 @@
 #include "parse.h"
 
 #define RESCHED_BUF_LEN (16)
+#define HISTORY_BUF_LEN (16)
 
 struct {
 	enum opcode op;
@@ -57,6 +58,7 @@ static void dfs_permu(int dep, int n);
 static int has_dep(struct ins *i, struct ins *j);
 static int need_resched();
 static int is_branch_op(enum opcode op);
+static int can_swap_resched(int i, int j);
 
 int stall_range = 2;
 int n_ins;
@@ -71,6 +73,7 @@ static struct {
 	int resched_buf_len;
 } cpu;
 static char mem[MEM_SIZE];
+static struct ins history_buf[HISTORY_BUF_LEN];
 
 static int debug;
 static int optimized;
@@ -135,7 +138,7 @@ static void run() {
 	int n_cycles = 0;
 	char *mem;
 	int rs, rt, rd, imm;
-	int i;
+	int i, j = 0, k;
 
 	init_cpu();
 	while (cpu.pc_mem < ins_buf + n_ins) {
@@ -147,6 +150,7 @@ static void run() {
 			print_ins(cpu.pc_rb);
 		}
 
+		history_buf[j] = *cpu.pc_rb;
 		exec_ins();
 
 		if (debug) {
@@ -159,6 +163,16 @@ static void run() {
 
 		cpu.pc_mem++;
 		if (cpu.pc_rb != NULL) cpu.pc_rb++;
+		n_cycles++;
+
+		// count hazard
+		for (k = 1; k < stall_range && k < n_cycles; k++)
+			if (has_dep(&history_buf[(j - k + HISTORY_BUF_LEN) % HISTORY_BUF_LEN],
+						&history_buf[j])) {
+				n_data_hazards++;
+				break;
+			}
+		j = (j + 1) % HISTORY_BUF_LEN;
 	}
 
 	if (profile)
@@ -166,9 +180,8 @@ static void run() {
 }
 
 static int best_hazards;
-static int permu[RESCHED_BUF_LEN];
 static struct ins resched_buf_best[RESCHED_BUF_LEN];
-static int used[RESCHED_BUF_LEN];
+
 static void resched() {
 	int i, n;
 
@@ -178,10 +191,13 @@ static void resched() {
 	memcpy(cpu.resched_buf, cpu.pc_mem, n * sizeof(struct ins));
 	cpu.resched_buf_len = n;
 
-	best_hazards = 0x7fffffff;  // infinity
-	dfs_permu(0, n);
+	if (n > 0) {
+		best_hazards = eval_resched_buf();  // infinity
+		memcpy(resched_buf_best, cpu.resched_buf, n * sizeof(struct ins));
+		dfs_permu(0, n);
 
-	memcpy(cpu.resched_buf, resched_buf_best, n * sizeof(struct ins));
+		memcpy(cpu.resched_buf, resched_buf_best, n * sizeof(struct ins));
+	}
 	if (n < resched_buf_len) {
 		assert(is_branch_op(cpu.pc_mem[n].op));
 		cpu.resched_buf[n] = cpu.pc_mem[n];
@@ -195,7 +211,7 @@ static int eval_resched_buf() {
 	int cnt = 0;
 
 	for (i = 0; i < cpu.resched_buf_len; i++)
-		for (j = 0; j < i && i-j < stall_range; j++)
+		for (j = i-1; j >= 0 && i-j < stall_range; j--)
 			if (has_dep(&cpu.resched_buf[j], &cpu.resched_buf[i])) {
 				cnt++;
 				break;
@@ -205,30 +221,43 @@ static int eval_resched_buf() {
 
 static void dfs_permu(int dep, int n) {
 	int i;
-	struct ins resched_buf_tmp[RESCHED_BUF_LEN];
 	int tmp;
+	struct ins tmp_ins;
 
 	if (dep >= n) {
-		memcpy(resched_buf_tmp, cpu.resched_buf, n * sizeof(struct ins));
-		for (i = 0; i < n; i++)
-			cpu.resched_buf[i] = resched_buf_tmp[permu[i]];
 		tmp = eval_resched_buf();
-		memcpy(cpu.resched_buf, resched_buf_tmp, n * sizeof(struct ins));
 
 		if (tmp < best_hazards) {
+			printf("original:\n");
+			for (i = 0; i < n; i++) {
+				print_ins(&resched_buf_best[i]);
+				printf("\n");
+			}
+			printf("resched:\n");
+			for (i = 0; i < n; i++) {
+				print_ins(&cpu.resched_buf[i]);
+				printf("\n");
+			}
+
 			best_hazards = tmp;
-			memcpy(resched_buf_best, resched_buf_tmp, n * sizeof(struct ins));
+			memcpy(resched_buf_best, cpu.resched_buf, n * sizeof(struct ins));
 		}
 		return;
 	}
 
-	for (i = 0; i < n; i++)
-		if (!used[i]) {
-			permu[dep] = i;
-			used[i] = 1;
+	dfs_permu(dep+1, n);
+	for (i = dep; i < n-1 && !has_dep(&cpu.resched_buf[i], &cpu.resched_buf[i+1]); i++) {
+			// swap
+			tmp_ins = cpu.resched_buf[i+1];
+			cpu.resched_buf[i+1] = cpu.resched_buf[i];
+			cpu.resched_buf[i] = tmp_ins;
+
 			dfs_permu(dep+1, n);
-			used[i] = 0;
 		}
+	// swap back
+	tmp_ins = cpu.resched_buf[dep];
+	cpu.resched_buf[dep] = cpu.resched_buf[i];
+	cpu.resched_buf[i] = tmp_ins;
 }
 
 static void debug_msg(const char *fmt, ...) {
@@ -479,4 +508,5 @@ static int has_dep(struct ins *i, struct ins *j) {
 static int is_branch_op(enum opcode op) {
 	return op == OP_J || op == OP_JR || op == OP_JAL || op == OP_BNE || op == OP_BEQ;
 }
+
 
