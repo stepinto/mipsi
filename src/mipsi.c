@@ -158,7 +158,7 @@ static void run() {
 		}
 
 		cpu.pc_mem++;
-		cpu.pc_rb++;
+		if (cpu.pc_rb != NULL) cpu.pc_rb++;
 	}
 
 	if (profile)
@@ -244,8 +244,8 @@ static void debug_msg(const char *fmt, ...) {
 static struct ins *find_ins(int label) {
 	int i;
 
-	for (i = 0; i < INS_BUF_LEN; i++)
-		if (ins_buf[i].label = label)
+	for (i = 0; i < n_ins; i++)
+		if (ins_buf[i].label == label)
 			return ins_buf + i;
 	return NULL;
 }
@@ -387,13 +387,13 @@ static void exec_ins() {
 			break;
 		case OP_BEQ:
 			if (cpu.reg_value[rs] == cpu.reg_value[rt]) {
-				cpu.pc_mem = find_ins(imm);
+				cpu.pc_mem = find_ins(imm) - 1;
 				cpu.pc_rb = NULL;
 			}
 			break;
 		case OP_BNE:
 			if (cpu.reg_value[rs] != cpu.reg_value[rt]) {
-				cpu.pc_mem = find_ins(imm);
+				cpu.pc_mem = find_ins(imm) - 1;
 				cpu.pc_rb = NULL;
 			}
 			break;
@@ -407,7 +407,7 @@ static void exec_ins() {
 			cpu.pc_rb = NULL;
 			break;
 		case OP_JR:
-			cpu.pc_mem = ins_buf + cpu.reg_value[rs];
+			cpu.pc_mem = ins_buf + cpu.reg_value[rs] - 1;
 			cpu.pc_rb = NULL;
 			break;
 		case OP_LW:
